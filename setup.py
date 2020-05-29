@@ -1,7 +1,7 @@
 # coding utf-8
 import setuptools
 
-########################################################################################################################
+###############################################################################
 
 plugin_identifier = "wifistatus"
 plugin_package = "octoprint_{}".format(plugin_identifier)
@@ -13,7 +13,7 @@ plugin_author_email = "manuel@mclure.org"
 plugin_url = "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus"
 plugin_license = "AGPLv3"
 
-########################################################################################################################
+###############################################################################
 
 def package_data_dirs(source, sub_folders):
 	import os
