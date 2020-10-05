@@ -1,9 +1,5 @@
 # coding = utf-8
 
-__author__ = "Manuel McLure <manuel@mclure.org>"
-__license = "GNU Affero General Public License http://www.gnu.org/licenses/agpl.html"
-__copyright__ = "Copyright (C) Manuel McLure - Released under terms of the AGPLv3 License"
-
 import octoprint.plugin
 from octoprint.util import RepeatedTimer
 import sys
@@ -16,9 +12,11 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
     def on_after_startup(self):
         self._logger.info("WiFiStatus loaded!")
 
-__plugin_name__ = "WiFi Status Plugin"
-__plugin_author__ = "Manuel McLure"
-__plugin_url__ = "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus"
+    def get_assets(self):
+        return {
+            "js": ["js/wifistatus.js"],
+        }
+
 __plugin_pythoncompat__ = ">=3.7,<4"
 
 def __plugin_load__():

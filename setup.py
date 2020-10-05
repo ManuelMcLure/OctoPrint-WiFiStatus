@@ -12,6 +12,7 @@ plugin_author = "Manuel McLure"
 plugin_author_email = "manuel@mclure.org"
 plugin_url = "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus"
 plugin_license = "AGPLv3"
+plugin_copyright = "Copyright (C) Manuel McLure - Released under terms of the AGPLv3 License"
 
 ###############################################################################
 
@@ -45,7 +46,7 @@ def params():
 	packages = [plugin_package]
 
 	# we might have additional data files in sub folders that need to be installed too
-	package_data = {plugin_package: package_data_dirs(plugin_package, ['static', 'templates', 'translations'] + plugin_additional_data)}
+	package_data = {plugin_package: package_data_dirs(plugin_package, ['static', 'templates', 'translations'])}
 	include_package_data = True
 
 	# If you have any package data that needs to be accessible on the file system, such as templates or static assets
