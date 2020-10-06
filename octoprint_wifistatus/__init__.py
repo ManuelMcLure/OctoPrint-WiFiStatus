@@ -30,6 +30,7 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
         self._updateTimer.start()
 
     def update_wifi_status(self):
+        self._logger.info("WiFiStatus: update_wifi_status called")
         for interface in getWNICNames():
             wifi = Wireless(interface)
             essid = wifi.getEssid()
@@ -38,7 +39,6 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
         else:
             interface = None
 
-        self._logger.info("WiFiStatus: {}:{}".format(interface, essid))
         net_data = {"interface": interface,
                     "essid": essid}
 
