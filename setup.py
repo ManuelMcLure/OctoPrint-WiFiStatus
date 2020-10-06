@@ -1,5 +1,4 @@
 # coding utf-8
-import setuptools
 
 ###############################################################################
 
@@ -13,56 +12,42 @@ plugin_author_email = "manuel@mclure.org"
 plugin_url = "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus"
 plugin_license = "AGPLv3"
 plugin_copyright = "Copyright (C) Manuel McLure - Released under terms of the AGPLv3 License"
+plugin_requires = []
+plugin_additional_data = []
+plugin_additional_packages = []
+plugin_ignored_packages = []
+additional_setup_parameters = {}
 
 ###############################################################################
 
-def package_data_dirs(source, sub_folders):
-	import os
-	dirs = []
+from setuptools import setup
 
-	for d in sub_folders:
-		folder = os.path.join(source, d)
-		if not os.path.exists(folder):
-			continue
+try:
+    import octoprint_setuptools
+except:
+    print("Could not import OctoPrint's setuptools, are you sure you are running that under "
+        "the same python installation that OctoPrint is installed under?")
+    import sys
+    sys.exit(-1)
 
-		for dirname, _, files in os.walk(folder):
-			dirname = os.path.relpath(dirname, source)
-			for f in files:
-				dirs.append(os.path.join(dirname, f))
+setup_parameters = octoprint_setuptools.create_plugin_setup_parameters(
+    identifier=plugin_identifier,
+    package=plugin_package,
+    name=plugin_name,
+    version=plugin_version,
+    description=plugin_description,
+    author=plugin_author,
+    mail=plugin_author_email,
+    url=plugin_url,
+    license=plugin_license,
+    requires=plugin_requires,
+    additional_packages=plugin_additional_packages,
+    ignored_packages=plugin_ignored_packages,
+    additional_data=plugin_additional_data
+)
 
-	return dirs
+if len(additional_setup_parameters):
+    from octoprint.util import dict_merge
+    setup_parameters = dict_merge(setup_parameters, additional_setup_parameters)
 
-def params():
-	# Our metadata, as defined above
-	name = plugin_name
-	version = plugin_version
-	description = plugin_description
-	author = plugin_author
-	author_email = plugin_author_email
-	url = plugin_url
-	license = plugin_license
-
-	# we only have our plugin package to install
-	packages = [plugin_package]
-
-	# we might have additional data files in sub folders that need to be installed too
-	package_data = {plugin_package: package_data_dirs(plugin_package,
-    ['static', 'templates', 'translations', 'pythonwifi'])}
-	include_package_data = True
-
-	# If you have any package data that needs to be accessible on the file system, such as templates or static assets
-	# this plugin is not zip_safe.
-	zip_safe = False
-
-	# Read the requirements from our requirements.txt file
-	install_requires = open("requirements.txt").read().split("\n")
-
-	# Hook the plugin into the "octoprint.plugin" entry point, mapping the plugin_identifier to the plugin_package.
-	# That way OctoPrint will be able to find the plugin and load it.
-	entry_points = {
-		"octoprint.plugin": ["%s = %s" % (plugin_identifier, plugin_package)]
-	}
-
-	return locals()
-
-setuptools.setup(**params())
+setup(**setup_parameters)
