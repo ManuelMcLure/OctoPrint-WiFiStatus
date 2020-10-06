@@ -4,8 +4,6 @@ import octoprint.plugin
 from octoprint.util import RepeatedTimer
 import octoprint_wifistatus.pythonwifi.flags
 from octoprint_wifistatus.pythonwifi.iwlibs import Wireless, WirelessInfo, Iwrange, getWNICnames
-import sys
-import os
 
 class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
 		octoprint.plugin.TemplatePlugin,
@@ -16,7 +14,7 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
 
     def on_after_startup(self):
         self._logger.info("WiFiStatus loaded!")
-        self.start_update_timer(5)
+        self.start_update_timer(10)
 
     def get_assets(self):
         return {
@@ -28,9 +26,10 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
                                         self.update_wifi_status,
                                         run_first = True)
         self._updateTimer.start()
+        self._logger.debug("WiFiStatus: started timer!")
 
     def update_wifi_status(self):
-        self._logger.info("WiFiStatus: update_wifi_status called")
+        self._logger.debug("WiFiStatus: timer fired!")
         for interface in getWNICNames():
             wifi = Wireless(interface)
             essid = wifi.getEssid()
@@ -52,7 +51,6 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
 
         self._plugin_manager.send_plugin_message(self._identifier,
                                                 net_data)
-
 
 
 __plugin_pythoncompat__ = ">=3.7,<4"
