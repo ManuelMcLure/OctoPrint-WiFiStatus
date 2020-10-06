@@ -32,8 +32,7 @@ import time
 import re
 import sys
 
-import octoprint_wifistatus.pythonwifi.flags
-
+import octoprint_wifistatus.pythonwifi as pythonwifi
 
 KILO = 10**3
 MEGA = 10**6

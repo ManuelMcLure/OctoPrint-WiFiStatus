@@ -40,7 +40,8 @@ $(function() {
 		title = 'Interface: ' + data.interface + '\n' +
 		    'ESSID: ' + data.essid + '\n' +
 		    'Quality: ' + data.qual + '/' + data.qual_max + ' (' +
-			quality + '%)\n' +
+                quality + '%)\n' +
+            'Bitrate: ' + data.bitrate + '\n' +
 		    'Signal: ' + data.signal + 'dBm\n';
 		if (data.noise != 0)
 		    title += 'Noise: ' + data.noise + 'dBm\n';
