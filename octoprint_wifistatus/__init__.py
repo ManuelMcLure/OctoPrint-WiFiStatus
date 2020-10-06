@@ -2,8 +2,7 @@
 
 import octoprint.plugin
 from octoprint.util import RepeatedTimer
-import octoprint_wifistatus.pythonwifi.flags
-from octoprint_wifistatus.pythonwifi.iwlibs import Wireless, WirelessInfo, Iwrange, getWNICnames
+from .pythonwifi.iwlibs import Wireless, getWNICnames
 import sys
 
 class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
@@ -58,8 +57,8 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
             self._plugin_manager.send_plugin_message(self._identifier,
                                                     net_data)
         except Exception as exc:
-            self._logger.debug("WiFiStatus: timer exception: {}\n{}".
-                format(exc.args, sys.exc_info[2]))
+            self._logger.debug("WiFiStatus: timer exception: {}".
+                format(exc.args))
 
 
 __plugin_pythoncompat__ = ">=3.7,<4"
