@@ -19,6 +19,7 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
     def get_assets(self):
         return {
             "js": ["js/wifistatus.js"],
+            "css": ["css/wifistatus.css"],
         }
 
     def start_update_timer(self, interval):
