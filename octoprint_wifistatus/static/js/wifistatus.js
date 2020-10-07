@@ -48,8 +48,15 @@ $(function() {
 	    }
 	    self.IconSVG(svg);
 	    self.Title(title);
-	    document.getElementById('navbar_plugin_wifistatus_link').style.height =
-		document.getElementById('navbar_systemmenu').offsetHeight + "px";
+	    var navbarHeight = document.getElementById('navbar_systemmenu').offsetHeight;
+	    var iconHeight = document.getElementById('navbar_plugin_wifistatus_icon').getClientRects()[0].height;
+	    var link = document.getElementById('navbar_plugin_wifistatus_link');
+	    link.style.height = navbarHeight + "px";
+	    var topPadding = ((navbarHeight - iconHeight) / 2).toFixed();
+	    if (topPadding >= 0) {
+		link.style.paddingTop = topPadding + "px";
+	    }
+	    //console.log("NV: " + navbarHeight + " IC: " + iconHeight + " PD: " + topPadding);
 	};
     }
 
