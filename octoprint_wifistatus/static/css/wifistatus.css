@@ -1,4 +1,9 @@
+#navbar_plugin_wifistatus_link {
+    box-sizing: border-box;
+    padding-bottom: 0;
+    height: auto;
+}
 #navbar_plugin_wifistatus svg {
     fill: currentColor;
-    height: 1em;
+    height: 1.5em;
 }

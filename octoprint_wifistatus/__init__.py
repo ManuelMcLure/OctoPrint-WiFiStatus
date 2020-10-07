@@ -24,8 +24,8 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
 
     def start_update_timer(self, interval):
         self._updateTimer = RepeatedTimer(interval,
-                                        self.update_wifi_status)
-                                        #run_first = True)
+                                        self.update_wifi_status,
+                                        run_first = True)
         self._updateTimer.start()
         self._logger.debug("WiFiStatus: started timer!")
 

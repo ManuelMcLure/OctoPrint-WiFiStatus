@@ -48,6 +48,8 @@ $(function() {
 	    }
 	    self.IconSVG(svg);
 	    self.Title(title);
+	    document.getElementById('navbar_plugin_wifistatus_link').style.height =
+		document.getElementById('navbar_systemmenu').offsetHeight + "px";
 	};
     }
 
