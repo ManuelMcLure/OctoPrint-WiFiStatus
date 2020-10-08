@@ -8,5 +8,5 @@ This plugin will add a WiFi status indicator to the OctoPrint Navbar to give an 
 
 
 # Setup
-This plugin only works on Linux.
-There is no configuration. It will automatically search for the WiFi interface.
+This plugin only works on Linux, and requires that OctoPrint be running under Python 3.
+There is no configuration - it will automatically search for the WiFi interface.

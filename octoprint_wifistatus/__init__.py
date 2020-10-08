@@ -61,15 +61,39 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
             self._logger.debug("WiFiStatus: timer exception: {}".
                 format(exc.args))
 
+    def get_update_information(self):
+        return dict(
+
+            navbartemp=dict(
+                displayName="WiFi Status Plugin",
+                displayVersion=self._plugin_version,
+                # version check: github repository
+                type="github_release",
+                user="ManuelMcLure",
+                repo="OctoPrint-WiFiStatus",
+                current=self._plugin_version,
+
+                # update method: pip w/ dependency links
+                pip="https://github.com/ManuelMcLure/OctoPrint-WiFiStatus/archive/{target_version}.zip"
+            )
+        )
 
 __plugin_pythoncompat__ = ">=3.7,<4"
+
+def __plugin_check__():
+    if sys.platform.startswith('linux'):
+        return True;
+    else
+        return False;
 
 def __plugin_load__():
     global __plugin_implementation__
     __plugin_implementation__ = WiFiStatusPlugin()
 
-#    global __plugin_hooks__
-#    __plugin_hooks__ = {
-#        "octoprint.plugin.softwareupdate.check_config":
-#            __plugin_implementation__.get_update_information
-#    }
+ # ~~ Softwareupdate hook
+
+    global __plugin_hooks__
+    __plugin_hooks__ = {
+        "octoprint.plugin.softwareupdate.check_config":
+            __plugin_implementation__.get_update_information
+    }
