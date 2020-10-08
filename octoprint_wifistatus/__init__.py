@@ -1,9 +1,23 @@
 # coding = utf-8
 
+_pythonwifi_imported_ = False
+
 import octoprint.plugin
-from octoprint.util import RepeatedTimer
-from .pythonwifi.iwlibs import Wireless, getWNICnames
 import sys
+import logging
+from octoprint.util import RepeatedTimer
+
+try:
+    from .pythonwifi.iwlibs import Wireless, getWNICnames
+    _pythonwifi_imported_ = True
+except:
+    pass
+
+def __plugin_check__():
+    if sys.platform.startswith('linux') and _pythonwifi_imported_:
+        return True
+    else:
+        return False
 
 class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
 		octoprint.plugin.TemplatePlugin,
@@ -62,29 +76,23 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
                 format(exc.args))
 
     def get_update_information(self):
-        return dict(
-
-            navbartemp=dict(
-                displayName="WiFi Status Plugin",
-                displayVersion=self._plugin_version,
+        return {
+            "wifistatus": {
+                "displayName": "WiFi Status Plugin",
+                "displayVersion": self._plugin_version,
                 # version check: github repository
-                type="github_release",
-                user="ManuelMcLure",
-                repo="OctoPrint-WiFiStatus",
-                current=self._plugin_version,
+                "type": "github_release",
+                "user": "ManuelMcLure",
+                "repo": "OctoPrint-WiFiStatus",
+                "current": self._plugin_version,
 
                 # update method: pip w/ dependency links
-                pip="https://github.com/ManuelMcLure/OctoPrint-WiFiStatus/archive/{target_version}.zip"
-            )
-        )
+                "pip": "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus/archive/{target_version}.zip"
+            }
+        }
 
 __plugin_pythoncompat__ = ">=3.7,<4"
 
-def __plugin_check__():
-    if sys.platform.startswith('linux'):
-        return True;
-    else:
-        return False;
 
 def __plugin_load__():
     global __plugin_implementation__
