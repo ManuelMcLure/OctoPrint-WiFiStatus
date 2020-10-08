@@ -83,7 +83,7 @@ __plugin_pythoncompat__ = ">=3.7,<4"
 def __plugin_check__():
     if sys.platform.startswith('linux'):
         return True;
-    else
+    else:
         return False;
 
 def __plugin_load__():
