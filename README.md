@@ -6,7 +6,7 @@ This plugin will add a WiFi status indicator to the OctoPrint Navbar to give an 
 
 ![WiFiStatus](/assets/WiFiStatus.png)
 
-This plugin only works on Linux.
 
 # Setup
-Just install the plugin. There is no configuration. It will automatically search for the WiFi interface.
+This plugin only works on Linux.
+There is no configuration. It will automatically search for the WiFi interface.
