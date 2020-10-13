@@ -66,6 +66,7 @@ class WiFiStatusPlugin(octoprint.plugin.StartupPlugin,
                 net_data["qual_max"] = wifi.getQualityMax().quality
                 net_data["signal"] = qual.signallevel
                 net_data["noise"] = qual.noiselevel
+                net_data["ap_mac"] = wifi.getAPaddr()
 
             self._logger.debug(net_data)
 

@@ -42,9 +42,10 @@ $(function() {
 		    'Quality: ' + data.qual + '/' + data.qual_max + ' (' +
                 quality + '%)\n' +
             'Bitrate: ' + data.bitrate + '\n' +
-		    'Signal: ' + data.signal + 'dBm\n';
+		    'Signal: ' + data.signal + 'dBm';
 		if (data.noise != 0)
-		    title += 'Noise: ' + data.noise + 'dBm\n';
+		    title += '\nNoise: ' + data.noise + 'dBm'
+        title += '\nAP: ' + data.ap_mac
 	    }
 	    self.IconSVG(svg);
 	    self.Title(title);
