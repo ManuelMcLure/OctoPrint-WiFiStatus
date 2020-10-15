@@ -5,6 +5,7 @@ _pythonwifi_imported_ = False
 import octoprint.plugin
 import sys
 import logging
+import netifaces as ni
 from octoprint.util import RepeatedTimer
 
 try:
@@ -26,6 +27,7 @@ class WiFiStatusPlugin(
     octoprint.plugin.StartupPlugin,
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.AssetPlugin,
+    octoprint.plugin.SettingsPlugin,
 ):
     def __init__(self):
         self._updateTimer = None
@@ -39,6 +41,18 @@ class WiFiStatusPlugin(
             "js": ["js/wifistatus.js"],
             "css": ["css/wifistatus.css"],
         }
+
+    def get_template_configs(self):
+        return [
+            {
+                "type": "navbar",
+                "custom_bindings": True,
+            },
+            {
+                "type": "settings",
+                "custom_bindings": False,
+            },
+        ]
 
     def start_update_timer(self, interval):
         self._updateTimer = RepeatedTimer(
@@ -69,7 +83,20 @@ class WiFiStatusPlugin(
                 net_data["qual_max"] = wifi.getQualityMax().quality
                 net_data["signal"] = qual.signallevel
                 net_data["noise"] = qual.noiselevel
-                net_data["ap_mac"] = wifi.getAPaddr()
+                if self.showBSSID:
+                    net_data["bssid"] = wifi.getAPaddr()
+                if self.showIPV4Addr:
+                    ipv4addrs = [
+                        ad["addr"] for ad in ni.ifaddresses(interface)[ni.AF_INET]
+                    ]
+                    net_data["ipv4addrs"] = ipv4addrs
+                if self.showIPV6Addr:
+                    ipv6addrs = [
+                        ad["addr"]
+                        for ad in ni.ifaddresses(interface)[ni.AF_INET6]
+                        if not ad["addr"].endswith("%" + interface)
+                    ]
+                    net_data["ipv6addrs"] = ipv6addrs
 
             self._logger.debug(net_data)
 
@@ -91,6 +118,22 @@ class WiFiStatusPlugin(
                 "pip": "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus/archive/{target_version}.zip",
             }
         }
+
+    def get_settings_defaults(self):
+        return {
+            "showBSSID": False,
+            "showIPV4Addr": False,
+            "showIPV6Addr": False,
+        }
+
+    def on_settings_initialized(self):
+        self.showBSSID = self._settings.get_boolean(["showBSSID"])
+        self.showIPV4Addr = self._settings.get_boolean(["showIPV4Addr"])
+        self.showIPV6Addr = self._settings.get_boolean(["showIPV6Addr"])
+
+    def on_settings_save(self, data):
+        octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
+        self.on_settings_initialized()
 
 
 __plugin_pythoncompat__ = ">=3.7,<4"
