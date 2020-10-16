@@ -15,7 +15,7 @@ $(function() {
 
 
         self.IconSVG = ko.observable(self._svgPrefix + self._iconSVGs[0]);
-        self.Title = ko.observable('No connection');
+	self.wifiData = ko.observableArray([]);
 
         self.onDataUpdaterPluginMessage = function(plugin, data) {
             if (plugin != "wifistatus") {
@@ -23,9 +23,11 @@ $(function() {
             }
 
             svg = self._svgPrefix;
+
+	    var wfData;
             if (!data.interface) {
                 svg += self._iconSVGs[0];
-                title = 'No connection';
+		wfData = [{text: "No connection"}];
             } else {
                 quality = Math.round((data.qual / data.qual_max) * 100);
                 if (quality > 80)
@@ -39,33 +41,35 @@ $(function() {
                 else
                     svg += self._iconSVGs[5];
 
-                title = 'Interface: ' + data.interface + '\n' +
-                    'ESSID: ' + data.essid + '\n' +
-                    'Quality: ' + data.qual + '/' + data.qual_max + ' (' +
-                        quality + '%)\n' +
-                    'Bitrate: ' + data.bitrate + '\n' +
-                    'Signal: ' + data.signal + 'dBm';
-                if (data.noise != 0)
-                    title += '\nNoise: ' + data.noise + 'dBm'
+		wfData = [
+		    {text: 'Interface: ' + data.interface},
+		    {text: 'ESSID: ' + data.essid},
+		    {text: 'Quality: ' + data.qual + '/'
+			+ data.qual_max + ' (' + quality + '%)'},
+		    {text: 'Bitrate: ' + data.bitrate},
+		    {text: 'Signal: ' + data.signal + 'dBm'}
+		];
+		if (data.noise != 0)
+		    wfData.push({text: 'Noise: ' + data.noise + 'dBm'});
                 if (data.bssid)
-                    title += '\nBSSID: ' + data.bssid
+		    wfData.push({text: 'BSSID: ' + data.bssid});
                 if (data.ipv4addrs) {
                     var i;
                     for (i = 0; i < data.ipv4addrs.length; i++)
-                        title += '\n' +
-                            ((i == 0) ? 'IPV4: ' : '      ') +
-                            data.ipv4addrs[i];
+			wfData.push({text: ((i == 0) ? 'IPV4: ' :
+                            '&nbsp&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') +
+                            data.ipv4addrs[i]});
                 }
                 if (data.ipv6addrs) {
                     var i;
                     for (i = 0; i < data.ipv6addrs.length; i++)
-                        title += '\n' +
-                            ((i == 0) ? 'IPV6: ' : '      ') +
-                            data.ipv6addrs[i];
+			wfData.push({text: ((i == 0) ? 'IPV6: ' :
+                            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') +
+                            data.ipv6addrs[i]});
                 }
             }
             self.IconSVG(svg);
-            self.Title(title);
+	    self.wifiData(wfData);
             var navbarHeight = document.getElementById('navbar_systemmenu').offsetHeight;
             var iconHeight = document.getElementById('navbar_plugin_wifistatus_icon').getClientRects()[0].height;
             var link = document.getElementById('navbar_plugin_wifistatus_link');

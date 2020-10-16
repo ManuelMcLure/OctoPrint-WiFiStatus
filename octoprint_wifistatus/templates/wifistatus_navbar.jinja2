@@ -1,3 +1,7 @@
-<a id= "navbar_plugin_wifistatus_link" class="pull-right" data-bind="attr: {title: Title}">
+<a href="javascript:void(0)" id= "navbar_plugin_wifistatus_link" class="dropdown-toggle" data-toggle="dropdown">
 	<svg id="navbar_plugin_wifistatus_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-bind="html: IconSVG"></svg>
+	<b class="caret"></b>
 </a>
+<ul class="dropdown-menu" data-bind="foreach: wifiData">
+    <li><a href="javascript:void(0)" data-bind="text: text"></a></li>
+</ul>

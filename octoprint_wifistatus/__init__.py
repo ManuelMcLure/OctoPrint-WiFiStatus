@@ -47,6 +47,7 @@ class WiFiStatusPlugin(
             {
                 "type": "navbar",
                 "custom_bindings": True,
+                "classes": ["dropdown",],
             },
             {
                 "type": "settings",
