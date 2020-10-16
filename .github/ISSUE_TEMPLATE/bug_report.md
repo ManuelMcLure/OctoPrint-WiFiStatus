@@ -15,7 +15,7 @@ If the WiFi icon does not appear in the navigation bar and/or the plugin appears
 
 This plugin is _only_ supported on Linux (including the Raspberry Pi) and if OctoPrint is running under Python 3.7 or higher. Note that it is not sufficient that Python 3.7 be installed on the system - OctoPrint must have been configured/upgraded to use Python 3.7 instead of Python 2.7. If you have installed OctoPi 0.17 or lower and have not taken explicit steps to upgrade to Python 3 then OctoPrint will still be running under Python 2.7 and this plugin _will not_ work. Upgrading OctoPrint from the version included in OctoPi to the latest version _will not_ make it run under Python 3 automatically.
 
-To determine whether OctoPrint is running under Python 3.7 or higher, look at the very bottom of yuor OctoPrint UI in the browser, where there will be a line indicating the version of OctoPrint and the version of Python. If the Python version is not 3.7 or higher this plugin _will not_ work.
+To determine whether OctoPrint is running under Python 3.7 or higher, look at the very bottom of your OctoPrint UI in the browser, where there will be a line indicating the version of OctoPrint and the version of Python. If the Python version is not 3.7 or higher this plugin _will not_ work.
 
 If you wish to upgrade your OctoPrint to use Python 3, please check out https://github.com/cp2004/Octoprint-Upgrade-To-Py3 for a script that will help you do the upgrade. Please note that if you use any plugins that have not yet been upgraded to support Python 3 they will be disabled after the upgrade, so weigh your options carefully.
 
