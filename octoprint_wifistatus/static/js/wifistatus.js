@@ -53,19 +53,18 @@ $(function() {
 		    wfData.push({text: 'Noise: ' + data.noise + 'dBm'});
                 if (data.bssid)
 		    wfData.push({text: 'BSSID: ' + data.bssid});
+		//const indent = '&nbsp;';
                 if (data.ipv4addrs) {
                     var i;
                     for (i = 0; i < data.ipv4addrs.length; i++)
 			wfData.push({text: ((i == 0) ? 'IPV4: ' :
-                            '&nbsp&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') +
-                            data.ipv4addrs[i]});
+                            '&nbsp;'.repeat(10)) + data.ipv4addrs[i]});
                 }
                 if (data.ipv6addrs) {
                     var i;
                     for (i = 0; i < data.ipv6addrs.length; i++)
 			wfData.push({text: ((i == 0) ? 'IPV6: ' :
-                            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') +
-                            data.ipv6addrs[i]});
+                            '&nbsp;'.repeat(10)) + data.ipv6addrs[i]});
                 }
             }
             self.IconSVG(svg);
