@@ -81,8 +81,7 @@ class WiFiStatusPlugin(
             else:
                 interface = None
 
-            net_data = {"interfaces": self._interfaces,
-                    "interface": interface, "essid": essid}
+            net_data = {"interface": interface, "essid": essid}
 
             if not interface is None:
                 net_data["bitrate"] = wifi.getBitrate()
@@ -133,6 +132,14 @@ class WiFiStatusPlugin(
             "showBSSID": False,
             "showIPV4Addr": False,
             "showIPV6Addr": False,
+        }
+
+    def on_settings_load(self):
+        return {"interface": self._settings.get(["interface"]),
+            "interfaces": self._interfaces,
+            "showBSSID": self._settings.get_boolean(["showBSSID"]),
+            "showIPV4Addr": self._settings.get_boolean(["showIPV4Addr"]),
+            "showIPV6Addr": self._settings.get_boolean(["showIPV6Addr"])
         }
 
     def on_settings_initialized(self):

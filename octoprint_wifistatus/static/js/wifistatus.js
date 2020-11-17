@@ -16,8 +16,9 @@ $(function () {
 
     self.IconSVG = ko.observable(self._svgPrefix + self._iconSVGs[0]);
     self.wifiData = ko.observableArray([]);
-    self.interfaces = ko.observableArray([]);
-
+	self.onStartupComplete = function(){
+		console.log(self.settingsViewModel.settings.plugins.wifistatus);
+	}
     self.onDataUpdaterPluginMessage = function (plugin, data) {
       if (plugin != "wifistatus") {
         return;
@@ -26,8 +27,7 @@ $(function () {
       svg = self._svgPrefix;
 
       var wfData;
-      console.log(data.interfaces);
-      self.interfaces(data.interfaces);
+
       if (!data.interface) {
         svg += self._iconSVGs[0];
         wfData = [{ text: "No connection" }];
@@ -94,6 +94,6 @@ $(function () {
   OCTOPRINT_VIEWMODELS.push({
     construct: WiFiStatusViewModel,
     dependencies: ["settingsViewModel"],
-    elements: ["#navbar_plugin_wifistatus"],
+    elements: ["#navbar_plugin_wifistatus", "#settings_plugin_wifistatus"],
   });
 });
