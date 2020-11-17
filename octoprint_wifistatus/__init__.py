@@ -31,9 +31,15 @@ class WiFiStatusPlugin(
 ):
     def __init__(self):
         self._updateTimer = None
+        self._interfaces = []
+        # Get list of interfaces for settings
+        for interface in getWNICnames():
+            self._interfaces.append(interface)
+
 
     def on_after_startup(self):
         self._logger.info("WiFiStatus loaded!")
+        self._logger.info(self._interfaces)
         self.start_update_timer(10.0)
 
     def get_assets(self):
@@ -51,7 +57,7 @@ class WiFiStatusPlugin(
             },
             {
                 "type": "settings",
-                "custom_bindings": False,
+                "custom_bindings": True,
             },
         ]
 
@@ -67,7 +73,7 @@ class WiFiStatusPlugin(
         try:
             wifi = None
             essid = None
-            for interface in getWNICnames():
+            for interface in self._interfaces:
                 wifi = Wireless(interface)
                 essid = wifi.getEssid()
                 if essid:
@@ -75,7 +81,8 @@ class WiFiStatusPlugin(
             else:
                 interface = None
 
-            net_data = {"interface": interface, "essid": essid}
+            net_data = {"interfaces": self._interfaces,
+                    "interface": interface, "essid": essid}
 
             if not interface is None:
                 net_data["bitrate"] = wifi.getBitrate()
@@ -122,12 +129,14 @@ class WiFiStatusPlugin(
 
     def get_settings_defaults(self):
         return {
+            "interface": None,
             "showBSSID": False,
             "showIPV4Addr": False,
             "showIPV6Addr": False,
         }
 
     def on_settings_initialized(self):
+        self.interface = self._settings.get(["interface"])
         self.showBSSID = self._settings.get_boolean(["showBSSID"])
         self.showIPV4Addr = self._settings.get_boolean(["showIPV4Addr"])
         self.showIPV6Addr = self._settings.get_boolean(["showIPV6Addr"])
