@@ -54,6 +54,8 @@ $(function () {
         ];
         if (data.noise != 0)
           wfData.push({ text: "Noise: " + data.noise + "dBm" });
+        if (data.frequency)
+          wfData.push({ text: "Frequency: " + data.frequency });
         if (data.bssid) wfData.push({ text: "BSSID: " + data.bssid });
         if (data.ipv4addrs) {
           var i;

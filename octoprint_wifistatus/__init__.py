@@ -47,7 +47,9 @@ class WiFiStatusPlugin(
             {
                 "type": "navbar",
                 "custom_bindings": True,
-                "classes": ["dropdown",],
+                "classes": [
+                    "dropdown",
+                ],
             },
             {
                 "type": "settings",
@@ -84,6 +86,8 @@ class WiFiStatusPlugin(
                 net_data["qual_max"] = wifi.getQualityMax().quality
                 net_data["signal"] = qual.signallevel
                 net_data["noise"] = qual.noiselevel
+                if self.showFrequency:
+                    net_data["frequency"] = wifi.getFrequency()
                 if self.showBSSID:
                     net_data["bssid"] = wifi.getAPaddr()
                 if self.showIPV4Addr:
@@ -123,12 +127,14 @@ class WiFiStatusPlugin(
     def get_settings_defaults(self):
         return {
             "showBSSID": False,
+            "showFrequency": False,
             "showIPV4Addr": False,
             "showIPV6Addr": False,
         }
 
     def on_settings_initialized(self):
         self.showBSSID = self._settings.get_boolean(["showBSSID"])
+        self.showFrequency = self._settings.get_boolean(["showFrequency"])
         self.showIPV4Addr = self._settings.get_boolean(["showIPV4Addr"])
         self.showIPV6Addr = self._settings.get_boolean(["showIPV6Addr"])
 

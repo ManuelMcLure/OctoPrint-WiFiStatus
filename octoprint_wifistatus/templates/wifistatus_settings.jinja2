@@ -1,26 +1,32 @@
 <form class="form-horizontal">
-    <h4>Data</h4>
-    <div class="control-group">
-	<div class="controls">
-	    <label class="checkbox">
-		<input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showBSSID"> Show Access Point BSSID
-	    </label>
-	</div>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showBSSID"> Show access point BSSID
+      </label>
     </div>
-    <div class="control-group">
-	<div class="controls">
-	    <label class="checkbox">
-		<input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV4Addr"> Show IPV4 address(es)
-	    </label>
-	</div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showFrequency"> Show frequency
+      </label>
     </div>
-    <div class="control-group">
-	<div class="controls">
+  </div>
+  <div class="control-group">
+    <div class="controls">
 	    <label class="checkbox">
-		<input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV6Addr"> Show IPV6 address(es)
+        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV4Addr"> Show IPV4 address(es)
 	    </label>
-	</div>
     </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+	    <label class="checkbox">
+        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV6Addr"> Show IPV6 address(es)
+	    </label>
+    </div>
+  </div>
 </form>
 
 
