@@ -20,10 +20,10 @@ You can configure whether the plugin will display:
 
 # Acknowledgements
 
-This plugin includes and is heavily dependent on a fork of PythonWifi (https://pythonwifi.tuxfamily.org). Thanks to Róman Joost and Sean Robinson for making PythonWifi available.
+This plugin includes and is heavily dependent on Python3Wifi (https://github.com/ManuelMcLure/python3wifi), a fork of PythonWifi (https://pythonwifi.tuxfamily.org). Thanks to Róman Joost and Sean Robinson for making PythonWifi available.
 
 # License
 
 The plugin is licensed under the GNU Affero General Public License. See `LICENSE.md` for details.
 
-PythonWifi is licences under the GNU Lesser General Public License 2+. See `octoprint_wifistatus/pythonwifi/LICENSE.md` for details.
+Python3Wifi is licenced under the GNU Lesser General Public License 2+. See `octoprint_wifistatus/pythonwifi/LICENSE.md` for details.
