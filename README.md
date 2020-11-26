@@ -24,6 +24,6 @@ This plugin includes and is heavily dependent on a fork of PythonWifi (https://p
 
 # License
 
-The plugin is licensed under the GNU Affero General Public License. See `LICENSE` for details.
+The plugin is licensed under the GNU Affero General Public License. See `LICENSE.md` for details.
 
-PythonWifi is licences under the GNU Lesser General Public License 2+. See `octoprint_wifistatus/pythonwifi/LICENSE` for details.
+PythonWifi is licences under the GNU Lesser General Public License 2+. See `octoprint_wifistatus/pythonwifi/LICENSE.md` for details.
