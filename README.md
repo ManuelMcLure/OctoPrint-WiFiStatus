@@ -17,3 +17,7 @@ You can configure whether the plugin will display:
 - The Access Point BSSID
 - The IPV4 address(es) assigned to the WiFi interface
 - The IPV6 assress(es) assignes to the WiFi interface
+
+# Acknowledgements
+
+This plugin includes and is heavily dependent on a fork of PythonWifi (https://pythonwifi.tuxfamily.org). Thanks to Róman Joost and Sean Robinson for making PythonWifi available.
