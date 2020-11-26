@@ -14,9 +14,10 @@ This plugin only works on Linux, and requires that OctoPrint be running under Py
 
 You can configure whether the plugin will display:
 
-- The Access Point BSSID
+- The access point BSSID
+- The WiFi channel frequency
 - The IPV4 address(es) assigned to the WiFi interface
-- The IPV6 assress(es) assignes to the WiFi interface
+- The IPV6 address(es) assigned to the WiFi interface
 
 # Acknowledgements
 
