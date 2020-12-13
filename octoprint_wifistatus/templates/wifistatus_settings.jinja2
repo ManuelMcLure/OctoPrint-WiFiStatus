@@ -1,32 +1,49 @@
 <form class="form-horizontal">
-  <div class="control-group">
-    <div class="controls">
-      <label class="checkbox">
-        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showBSSID"> Show access point BSSID
-      </label>
+    <h4>{{ _('Show extra WiFi data') }}</h4>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showBSSID"> Show access point BSSID
+            </label>
+        </div>
     </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-      <label class="checkbox">
-        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showFrequency"> Show frequency
-      </label>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showFrequency"> Show frequency
+            </label>
+        </div>
     </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-	    <label class="checkbox">
-        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV4Addr"> Show IPV4 address(es)
-	    </label>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV4Addr"> Show IPV4 address(es)
+            </label>
+        </div>
     </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-	    <label class="checkbox">
-        <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV6Addr"> Show IPV6 address(es)
-	    </label>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.showIPV6Addr"> Show IPV6 address(es)
+            </label>
+        </div>
     </div>
-  </div>
+    <h4>{{ _('Look & feel') }}</h4>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox" title="If checked Font Awesome icons will be used instead of SVG icons">
+                <input type="checkbox" data-bind="checked: settings.plugins.wifistatus.userFontAwesome"> Use Font Awesome icons
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Popover trigger</label>
+        <div class="controls" title="How should the additional WiFi information be shown - focus is recommend">
+            <select data-bind="value: settings.plugins.wifistatus.popoverTrigger">
+                <option value="focus">On focus</option>
+                <option value="hover">On hover/mouseover</option>
+                <option value="click">On click</option>
+            </select>
+        </div>
+    </div>
 </form>
-
-

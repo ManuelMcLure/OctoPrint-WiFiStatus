@@ -1,5 +1,4 @@
 # coding = utf-8
-
 _pythonwifi_imported_ = False
 
 import octoprint.plugin
@@ -46,10 +45,7 @@ class WiFiStatusPlugin(
         return [
             {
                 "type": "navbar",
-                "custom_bindings": True,
-                "classes": [
-                    "dropdown",
-                ],
+                "custom_bindings": True
             },
             {
                 "type": "settings",
@@ -67,6 +63,7 @@ class WiFiStatusPlugin(
     def update_wifi_status(self):
         self._logger.debug("WiFiStatus: timer fired!")
         try:
+            # basically break at the first found
             wifi = None
             essid = None
             for interface in getWNICnames():
@@ -79,6 +76,7 @@ class WiFiStatusPlugin(
 
             net_data = {"interface": interface, "essid": essid}
 
+            # buil data if found
             if not interface is None:
                 net_data["bitrate"] = wifi.getBitrate()
                 stat, qual, discard, missed_beacon = wifi.getStatistics()
@@ -86,6 +84,8 @@ class WiFiStatusPlugin(
                 net_data["qual_max"] = wifi.getQualityMax().quality
                 net_data["signal"] = qual.signallevel
                 net_data["noise"] = qual.noiselevel
+
+                # build extra data if requested
                 if self.showFrequency:
                     net_data["frequency"] = wifi.getFrequency()
                 if self.showBSSID:
@@ -107,6 +107,8 @@ class WiFiStatusPlugin(
 
             self._plugin_manager.send_plugin_message(self._identifier, net_data)
         except Exception as exc:
+            # Send error message to UI
+            self._plugin_manager.send_plugin_message(self._identifier, {"interface": None, "errormsg" : "WiFiStatus: timer exception"})
             self._logger.debug("WiFiStatus: timer exception: {}".format(exc.args))
 
     def get_update_information(self):
@@ -130,6 +132,8 @@ class WiFiStatusPlugin(
             "showFrequency": False,
             "showIPV4Addr": False,
             "showIPV6Addr": False,
+            "userFontAwesome": True,
+            "popoverTrigger": "focus",
         }
 
     def on_settings_initialized(self):
