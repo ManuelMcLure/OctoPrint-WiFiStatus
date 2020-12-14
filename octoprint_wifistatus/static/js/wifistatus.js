@@ -36,7 +36,7 @@ $(function() {
         self._iconPrefix = self._svgPrefix;
         self._iconPostfix = self._svgPostFix;
 
-        // Init the UI and the click handler for the detailed view
+        // Init the UI and the click handler for the detailed viewe
         self.onAllBound = function() {
             // Set icon src to font awesome or not
             if (OctoPrint.coreui.viewmodels.settingsViewModel.settings.plugins.wifistatus.userFontAwesome()){
@@ -63,10 +63,10 @@ $(function() {
                 'html': true,
                 'placement': 'bottom',
                 'container': 'body',
-                'title': function(){return 'WiFi status <div class="navbar_plugin_wifistatus_titleIcon pull-right">'+self.iconData()+'</div>'},
+                'title': function(){ return 'WiFi status <div class="navbar_plugin_wifistatus_titleIcon pull-right">'+self.iconData()+'</div>'},
                 'trigger': OctoPrint.coreui.viewmodels.settingsViewModel.settings.plugins.wifistatus.popoverTrigger(),
                 'content': function() {
-                    return $('#navbar_plugin_wifistatus_content').html()
+                    return $('#navbar_plugin_wifistatus_content').html();
                 }
             });
         };
@@ -94,6 +94,7 @@ $(function() {
                     item: "Status",
                     text: 'No connection'
                 }];
+
                 // Apply error message if present
                 if (data.hasOwnProperty('errormsg')) {
                     newWifiData.push({
@@ -168,7 +169,7 @@ $(function() {
                 if (data.ipv4addrs.length > 0) {
                     newWifiData.push({
                         item: "IPV4",
-                        text: data.ipv4addrs.join("<br/>")
+                        text: '<ul class="ipinfo"><li>'+ data.ipv4addrs.join("</li><li>")+'</li></ul>'
                     })
                 }
             }
@@ -177,7 +178,7 @@ $(function() {
                 if (data.ipv6addrs.length > 0) {
                     newWifiData.push({
                         item: "IPV6",
-                        text: data.ipv6addrs.join("<br/>")
+                        text: '<ul class="ipinfo"><li>'+ data.ipv6addrs.join("</li><li>")+'</li></ul>'
                     })
                 }
             }

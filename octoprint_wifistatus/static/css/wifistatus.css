@@ -11,6 +11,10 @@
     position: relative;
     left: -3px;
 }
+.navbar_plugin_wifistatus_contentinner .ipinfo{
+	word-break: break-all;
+	list-style-type: none;
+}
 
 #navbar_plugin_wifistatus_icon i.q5{
 	background: linear-gradient(0deg, rgb(0 0 0) 0%, rgba(0,0,0,0) 55%);
