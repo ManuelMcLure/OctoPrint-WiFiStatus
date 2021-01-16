@@ -5,6 +5,7 @@ _pythonwifi_imported_ = False
 import octoprint.plugin
 import sys
 import logging
+import flask
 import netifaces as ni
 from octoprint.util import RepeatedTimer
 
@@ -28,9 +29,17 @@ class WiFiStatusPlugin(
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.AssetPlugin,
     octoprint.plugin.SettingsPlugin,
+    octoprint.plugin.SimpleApiPlugin,
 ):
+    def update_interface_list(self):
+        self._interfaces = [None]
+        # Get list of interfaces for settings
+        for interface in getWNICnames():
+            self._interfaces.append(interface)
+
     def __init__(self):
         self._updateTimer = None
+        self.update_interface_list()
 
     def on_after_startup(self):
         self._logger.info("WiFiStatus loaded!")
@@ -53,7 +62,7 @@ class WiFiStatusPlugin(
             },
             {
                 "type": "settings",
-                "custom_bindings": False,
+                "custom_bindings": True,
             },
         ]
 
@@ -69,17 +78,30 @@ class WiFiStatusPlugin(
         try:
             wifi = None
             essid = None
-            for interface in getWNICnames():
-                wifi = Wireless(interface)
-                essid = wifi.getEssid()
-                if essid:
-                    break
+            interface = self.selected_interface
+            if interface is not None:
+                # Only check specific interface
+                try:
+                    wifi = Wireless(interface)
+                    essid = wifi.getEssid()
+                except:
+                    essid = None
             else:
-                interface = None
+                # Loop through available interfaces
+                for interface in self._interfaces[1:]:
+                    try:
+                        wifi = Wireless(interface)
+                        essid = wifi.getEssid()
+                        if essid:
+                            break
+                    except:
+                        pass
+                else:
+                    interface = None
 
             net_data = {"interface": interface, "essid": essid}
 
-            if not interface is None:
+            if interface is not None and essid is not None:
                 net_data["bitrate"] = wifi.getBitrate()
                 stat, qual, discard, missed_beacon = wifi.getStatistics()
                 net_data["qual"] = qual.quality
@@ -126,13 +148,24 @@ class WiFiStatusPlugin(
 
     def get_settings_defaults(self):
         return {
+            "interface": None,
             "showBSSID": False,
             "showFrequency": False,
             "showIPV4Addr": False,
             "showIPV6Addr": False,
         }
 
+    def on_settings_load(self):
+        return {
+            "interface": self._settings.get(["interface"]),
+            "showBSSID": self._settings.get_boolean(["showBSSID"]),
+            "showFrequency": self._settings.get_boolean(["showFrequency"]),
+            "showIPV4Addr": self._settings.get_boolean(["showIPV4Addr"]),
+            "showIPV6Addr": self._settings.get_boolean(["showIPV6Addr"]),
+        }
+
     def on_settings_initialized(self):
+        self.selected_interface = self._settings.get(["interface"])
         self.showBSSID = self._settings.get_boolean(["showBSSID"])
         self.showFrequency = self._settings.get_boolean(["showFrequency"])
         self.showIPV4Addr = self._settings.get_boolean(["showIPV4Addr"])
@@ -142,6 +175,9 @@ class WiFiStatusPlugin(
         octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
         self.on_settings_initialized()
 
+    def on_api_get(self, request):
+        self.update_interface_list()
+        return flask.jsonify(interfaces=self._interfaces)
 
 __plugin_pythoncompat__ = ">=3.7,<4"
 

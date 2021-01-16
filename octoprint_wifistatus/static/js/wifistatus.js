@@ -16,6 +16,14 @@ $(function () {
 
     self.IconSVG = ko.observable(self._svgPrefix + self._iconSVGs[0]);
     self.wifiData = ko.observableArray([]);
+    self.interfaces = ko.observableArray([]);
+
+    self.onSettingsShown = function() {
+      OctoPrint.simpleApiGet("wifistatus")
+        .done(function(response) {
+            self.interfaces(response.interfaces);
+        });
+    };
 
     self.onDataUpdaterPluginMessage = function (plugin, data) {
       if (plugin != "wifistatus") {
@@ -25,9 +33,16 @@ $(function () {
       svg = self._svgPrefix;
 
       var wfData;
+
       if (!data.interface) {
         svg += self._iconSVGs[0];
         wfData = [{ text: "No connection" }];
+      } else if (!data.essid) {
+        svg += self._iconSVGs[0];
+        wfData = [
+          { text: "Interface: " + data.interface },
+          { text: "No connection" },
+        ];
       } else {
         quality = Math.round((data.qual / data.qual_max) * 100);
         if (quality > 80) svg += self._iconSVGs[1];
@@ -93,6 +108,6 @@ $(function () {
   OCTOPRINT_VIEWMODELS.push({
     construct: WiFiStatusViewModel,
     dependencies: ["settingsViewModel"],
-    elements: ["#navbar_plugin_wifistatus"],
+    elements: ["#navbar_plugin_wifistatus", "#settings_plugin_wifistatus"],
   });
 });
