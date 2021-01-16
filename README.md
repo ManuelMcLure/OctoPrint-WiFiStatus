@@ -19,6 +19,8 @@ You can configure whether the plugin will display:
 - The IPV4 address(es) assigned to the WiFi interface
 - The IPV6 address(es) assigned to the WiFi interface
 
+The configuration also allows selecting which interface to display data for.
+
 # Acknowledgements
 
 This plugin includes and is heavily dependent on Python3Wifi (https://github.com/ManuelMcLure/python3wifi), a fork of PythonWifi (https://pythonwifi.tuxfamily.org). Thanks to Róman Joost and Sean Robinson for making PythonWifi available.
