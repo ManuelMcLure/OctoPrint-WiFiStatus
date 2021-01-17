@@ -10,7 +10,7 @@ import netifaces as ni
 from octoprint.util import RepeatedTimer
 
 try:
-    from .pythonwifi.iwlibs import Wireless, getWNICnames
+    from .python3wifi.iwlibs import Wireless, getWNICnames
 
     _pythonwifi_imported_ = True
 except:
