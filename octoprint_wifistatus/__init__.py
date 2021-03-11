@@ -129,7 +129,7 @@ class WiFiStatusPlugin(
 
             self._plugin_manager.send_plugin_message(self._identifier, net_data)
         except Exception as exc:
-            self._logger.debug("WiFiStatus: timer exception: {}".format(exc.args))
+            self._logger.debug(f"WiFiStatus: timer exception: {exc.args}")
 
     def get_update_information(self):
         return {

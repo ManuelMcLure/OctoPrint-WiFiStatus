@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Python WiFi -- a library to access wireless card properties via Python
 # Copyright (C) 2004 - 2008 Róman Joost
 # Copyright (C) 2008 - 2009 Sean Robinson
