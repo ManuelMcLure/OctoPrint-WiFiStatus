@@ -2,8 +2,9 @@
 name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
-labels: ""
-assignees: ""
+labels: ''
+assignees: ''
+
 ---
 
 **ATTENTION**
@@ -39,6 +40,11 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+** Server**
+Describe the server environment - what distribution and version of Linux on what hardware?
+Is this an OctoPi installation or something different?
+What version of Python is OctoPrint running under?
+
 **Desktop (please complete the following information):**
 
 - OS: [e.g. iOS]
@@ -51,6 +57,9 @@ If applicable, add screenshots to help explain your problem.
 - OS: [e.g. iOS8.1]
 - Browser [e.g. stock browser, safari]
 - Version [e.g. 22]
+
+**Logs**
+Please go to the "Logging" settings page and add logging for `octoprint.plugins.wifistatus` with level `DEBUG`. Then reproduce the problem and upload the `octoprint.log` file to the issue.
 
 **Additional context**
 Add any other context about the problem here.
