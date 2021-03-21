@@ -34,15 +34,18 @@ class WiFiStatusPlugin(
     def update_interface_list(self):
         self._interfaces = [None]
         # Get list of interfaces for settings
-        for interface in getWNICnames():
-            self._interfaces.append(interface)
+        try:
+            for interface in getWNICnames():
+                self._interfaces.append(interface)
+        except:
+            pass
 
     def __init__(self):
         self._updateTimer = None
-        self.update_interface_list()
 
     def on_after_startup(self):
         self._logger.info("WiFiStatus loaded!")
+        self.update_interface_list()
         self.start_update_timer(10.0)
 
     def get_assets(self):
@@ -88,6 +91,17 @@ class WiFiStatusPlugin(
                     essid = None
             else:
                 # Loop through available interfaces
+                # If only the first element (None) is in the
+                # selected interfaces list, try to fetch the
+                # list again. This avoids issues with intefaces
+                # that don't show up before the plugin is
+                # initialized. On a system with no WiFi
+                # interfaces at all this will cause a bit of
+                # extra CPU usage, but you probably won't be
+                # running this plugin on a machine without
+                # WiFi anyway.
+                if self._interfaces.len() < 2:
+                    self.update_interface_list()
                 for interface in self._interfaces[1:]:
                     try:
                         wifi = Wireless(interface)
