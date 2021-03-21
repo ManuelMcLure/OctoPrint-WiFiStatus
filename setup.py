@@ -3,7 +3,7 @@
 ###############################################################################
 
 plugin_identifier = "wifistatus"
-plugin_package = f"octoprint_{plugin_identifier}"
+plugin_package = "octoprint_{}".format(plugin_identifier)
 plugin_name = "OctoPrint_WiFiStatus"
 plugin_version = "1.5.1"
 plugin_description = "Displays WiFi status on the navbar"
@@ -18,7 +18,7 @@ plugin_requires = ["netifaces>=0.10.9,<1"]
 plugin_additional_data = []
 plugin_additional_packages = []
 plugin_ignored_packages = []
-additional_setup_parameters = {}
+additional_setup_parameters = {"python_requires": ">3.7,<4"}
 
 ###############################################################################
 
