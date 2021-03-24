@@ -100,7 +100,7 @@ class WiFiStatusPlugin(
                 # extra CPU usage, but you probably won't be
                 # running this plugin on a machine without
                 # WiFi anyway.
-                if len(self._interfaces.len) < 2:
+                if len(self._interfaces) < 2:
                     self.update_interface_list()
                 for interface in self._interfaces[1:]:
                     try:
