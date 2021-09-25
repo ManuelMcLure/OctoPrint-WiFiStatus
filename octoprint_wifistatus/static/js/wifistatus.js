@@ -55,7 +55,6 @@ $(function () {
         wfData += "<tr><td>ESSID:</td><td>" + data.essid + "</td></tr>";
         wfData +=
           "<tr><td>Quality:</td><td>" +
-          "Quality: " +
           data.qual +
           "/" +
           data.qual_max +
