@@ -7,3 +7,14 @@
   fill: currentColor;
   height: 1.4em;
 }
+#navbar_plugin_wifistatus .popover {
+  width: auto !important;
+}
+#navbar_plugin_wifistatus .popover table {
+  width: auto !important;
+  table-layout: auto !important;
+}
+#navbar_plugin_wifistatus .popover td {
+  width: auto !important;
+  white-space: nowrap;
+}

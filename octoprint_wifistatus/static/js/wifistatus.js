@@ -17,12 +17,14 @@ $(function () {
     self.IconSVG = ko.observable(self._svgPrefix + self._iconSVGs[0]);
     self.wifiData = ko.observableArray([]);
     self.interfaces = ko.observableArray([]);
+    self.popoverContent = ko.observable(
+      '<table style="width: 100%"><thead></thead><tbody><tr><td>No Connection</td></tr></tbody></table>'
+    );
 
-    self.onSettingsShown = function() {
-      OctoPrint.simpleApiGet("wifistatus")
-        .done(function(response) {
-            self.interfaces(response.interfaces);
-        });
+    self.onSettingsShown = function () {
+      OctoPrint.simpleApiGet("wifistatus").done(function (response) {
+        self.interfaces(response.interfaces);
+      });
     };
 
     self.onDataUpdaterPluginMessage = function (plugin, data) {
@@ -32,17 +34,15 @@ $(function () {
 
       svg = self._svgPrefix;
 
-      var wfData;
+      var wfData = '<table style="width: 100%"><thead></thead><tbody>';
 
       if (!data.interface) {
         svg += self._iconSVGs[0];
-        wfData = [{ text: "No connection" }];
+        wfData += "<tr><td>No Connection</td></tr>";
       } else if (!data.essid) {
         svg += self._iconSVGs[0];
-        wfData = [
-          { text: "Interface: " + data.interface },
-          { text: "No connection" },
-        ];
+        wfData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
+        wfData += "<tr><td>No Connection</td></tr>";
       } else {
         quality = Math.round((data.qual / data.qual_max) * 100);
         if (quality > 80) svg += self._iconSVGs[1];
@@ -51,48 +51,59 @@ $(function () {
         else if (quality > 20) svg += self._iconSVGs[4];
         else svg += self._iconSVGs[5];
 
-        wfData = [
-          { text: "Interface: " + data.interface },
-          { text: "ESSID: " + data.essid },
-          {
-            text:
-              "Quality: " +
-              data.qual +
-              "/" +
-              data.qual_max +
-              " (" +
-              quality +
-              "%)",
-          },
-          { text: "Bitrate: " + data.bitrate },
-          { text: "Signal: " + data.signal + "dBm" },
-        ];
+        wfData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
+        wfData += "<tr><td>ESSID:</td><td>" + data.essid + "</td></tr>";
+        wfData +=
+          "<tr><td>Quality:</td><td>" +
+          "Quality: " +
+          data.qual +
+          "/" +
+          data.qual_max +
+          " (" +
+          quality +
+          "%) </td></tr>";
+        wfData += "<tr><td>Bitrate:</td><td>" + data.bitrate + "</td></tr>";
+        wfData += "<tr><td>Signal:</td><td>" + data.signal + "</td></tr>";
         if (data.noise != 0)
-          wfData.push({ text: "Noise: " + data.noise + "dBm" });
+          wfData += "<tr><td>Noise:</td><td>" + data.noise + "</td></tr>";
         if (data.frequency)
-          wfData.push({ text: "Frequency: " + data.frequency });
-        if (data.bssid) wfData.push({ text: "BSSID: " + data.bssid });
+          wfData +=
+            "<tr><td>Frequency:</td><td>" + data.frequency + "</td></tr>";
+        if (data.bssid)
+          wfData += "<tr><td>BSSID:</td><td>" + data.bssid + "</td></tr>";
         if (data.ipv4addrs) {
+          var title = "IPV4:";
           var i;
-          for (i = 0; i < data.ipv4addrs.length; i++)
-            wfData.push({
-              text:
-                (i == 0 ? "IPV4: " : "&nbsp;".repeat(10)) + data.ipv4addrs[i],
-            });
+          for (i = 0; i < data.ipv4addrs.length; i++) {
+            wfData +=
+              "<tr><td>" +
+              title +
+              "</td><td>" +
+              data.ipv4addrs[i] +
+              "</td></tr>";
+            title = "";
+          }
         }
         if (data.ipv6addrs) {
+          var title = "IPV6:";
           var i;
-          for (i = 0; i < data.ipv6addrs.length; i++)
-            wfData.push({
-              text:
-                (i == 0 ? "IPV6: " : "&nbsp;".repeat(10)) + data.ipv6addrs[i],
-            });
+          for (i = 0; i < data.ipv6addrs.length; i++) {
+            wfData +=
+              "<tr><td>" +
+              title +
+              "</td><td>" +
+              data.ipv6addrs[i] +
+              "</td></tr>";
+            title = "";
+          }
         }
       }
+      wfData += "</tbody></table>";
       self.IconSVG(svg);
+      self.popoverContent(wfData);
       self.wifiData(wfData);
-      var navbarHeight = document.getElementById("navbar_systemmenu")
-        .offsetHeight;
+      var navbarHeight =
+        document.getElementById("navbar_systemmenu").offsetHeight;
       var iconHeight = document
         .getElementById("navbar_plugin_wifistatus_icon")
         .getClientRects()[0].height;
