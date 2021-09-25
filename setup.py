@@ -4,7 +4,7 @@
 
 plugin_identifier = "wifistatus"
 plugin_package = "octoprint_{}".format(plugin_identifier)
-plugin_name = "OctoPrint_WiFiStatus"
+plugin_name = "WiFi Status"
 plugin_version = "1.6.1"
 plugin_description = "Displays WiFi status on the navbar"
 plugin_author = "Manuel McLure"

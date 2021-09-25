@@ -148,7 +148,7 @@ class WiFiStatusPlugin(
     def get_update_information(self):
         return {
             "wifistatus": {
-                "displayName": "WiFi Status Plugin",
+                "displayName": "WiFi Status",
                 "displayVersion": self._plugin_version,
                 # version check: github repository
                 "type": "github_release",
@@ -193,6 +193,7 @@ class WiFiStatusPlugin(
         self.update_interface_list()
         return flask.jsonify(interfaces=self._interfaces)
 
+__plugin_name__ = "WiFi Status"
 __plugin_pythoncompat__ = ">=3.7,<4"
 
 
