@@ -101,17 +101,6 @@ $(function () {
       self.IconSVG(svg);
       self.popoverContent(wfData);
       self.wifiData(wfData);
-      var navbarHeight =
-        document.getElementById("navbar_systemmenu").offsetHeight;
-      var iconHeight = document
-        .getElementById("navbar_plugin_wifistatus_icon")
-        .getClientRects()[0].height;
-      var link = document.getElementById("navbar_plugin_wifistatus_link");
-      link.style.height = navbarHeight + "px";
-      var topPadding = ((navbarHeight - iconHeight) / 2).toFixed();
-      if (topPadding >= 0) {
-        link.style.paddingTop = topPadding + "px";
-      }
     };
   }
 

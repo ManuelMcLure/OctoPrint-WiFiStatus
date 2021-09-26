@@ -1,11 +1,12 @@
-#navbar_plugin_wifistatus_link {
+#navbar_plugin_wifistatus_div {
   box-sizing: border-box;
-  padding-bottom: 0;
   height: auto;
 }
 #navbar_plugin_wifistatus svg {
   fill: currentColor;
   height: 1.4em;
+  margin-bottom: 0.3em;
+  vertical-align: middle;
 }
 #navbar_plugin_wifistatus .popover {
   width: auto !important;
@@ -17,4 +18,7 @@
 #navbar_plugin_wifistatus .popover td {
   width: auto !important;
   white-space: nowrap;
+}
+#navbar_plugin_wifistatus .popover td:last-child {
+  padding-left: 1em;
 }
