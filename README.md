@@ -1,4 +1,4 @@
-# OctoPrint-WifiStatus
+# Wifi Status
 
 Displays the Wifi status on the OctoPrint navbar.
 
