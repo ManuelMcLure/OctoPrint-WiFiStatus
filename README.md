@@ -2,7 +2,7 @@
 
 Displays the Wifi status on the OctoPrint navbar.
 
-This plugin will add a WiFi status indicator to the OctoPrint Navbar to give an at-a-glance indication of the quality of the WiFi connection. Clicking (or tapping on mobile) the indicator will pop up more information about the connection. Clicking again will dismiss the extra information.
+This plugin will add a WiFi status indicator to the OctoPrint Navbar to give an at-a-glance indication of the quality of the WiFi connection. Hovering over (or tapping on mobile) the indicator will pop up more information about the connection.
 
 ![WiFiStatus](/assets/WiFiStatus.png)
 
