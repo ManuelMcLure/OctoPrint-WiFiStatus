@@ -29,4 +29,4 @@ This plugin includes and is heavily dependent on Python3Wifi (https://github.com
 
 The plugin is licensed under the GNU Affero General Public License. See `LICENSE.md` for details.
 
-Python3Wifi is licenced under the GNU Lesser General Public License. See `octoprint_wifistatus/pythonwifi/LICENSE.md` for details.
+Python3Wifi is licenced under the GNU Lesser General Public License. See `octoprint_wifistatus/python3wifi/LICENSE.md` for details.
