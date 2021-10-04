@@ -10,6 +10,7 @@
 }
 #navbar_plugin_wifistatus .popover {
   width: auto !important;
+  max-width: 50em;
 }
 #navbar_plugin_wifistatus .popover table {
   width: auto !important;
