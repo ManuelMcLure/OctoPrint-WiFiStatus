@@ -15,7 +15,6 @@ $(function () {
     ];
 
     self.IconSVG = ko.observable(self._svgPrefix + self._iconSVGs[0]);
-    self.wifiData = ko.observableArray([]);
     self.interfaces = ko.observableArray([]);
     self.popoverContent = ko.observable(
       '<table style="width: 100%"><thead></thead><tbody><tr><td>No Connection</td></tr></tbody></table>'
@@ -34,15 +33,15 @@ $(function () {
 
       svg = self._svgPrefix;
 
-      var wfData = '<table style="width: 100%"><thead></thead><tbody>';
+      var wifiData = '<table style="width: 100%"><thead></thead><tbody>';
 
       if (!data.interface) {
         svg += self._iconSVGs[0];
-        wfData += "<tr><td>No Connection</td></tr>";
+        wifiData += "<tr><td>No Connection</td></tr>";
       } else if (!data.essid) {
         svg += self._iconSVGs[0];
-        wfData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
-        wfData += "<tr><td>No Connection</td></tr>";
+        wifiData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
+        wifiData += "<tr><td>No Connection</td></tr>";
       } else {
         quality = Math.round((data.qual / data.qual_max) * 100);
         if (quality > 80) svg += self._iconSVGs[1];
@@ -51,9 +50,9 @@ $(function () {
         else if (quality > 20) svg += self._iconSVGs[4];
         else svg += self._iconSVGs[5];
 
-        wfData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
-        wfData += "<tr><td>ESSID:</td><td>" + data.essid + "</td></tr>";
-        wfData +=
+        wifiData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
+        wifiData += "<tr><td>ESSID:</td><td>" + data.essid + "</td></tr>";
+        wifiData +=
           "<tr><td>Quality:</td><td>" +
           data.qual +
           "/" +
@@ -61,20 +60,20 @@ $(function () {
           " (" +
           quality +
           "%) </td></tr>";
-        wfData += "<tr><td>Bitrate:</td><td>" + data.bitrate + "</td></tr>";
-        wfData += "<tr><td>Signal:</td><td>" + data.signal + "</td></tr>";
+        wifiData += "<tr><td>Bitrate:</td><td>" + data.bitrate + "</td></tr>";
+        wifiData += "<tr><td>Signal:</td><td>" + data.signal + " dBm</td></tr>";
         if (data.noise != 0)
-          wfData += "<tr><td>Noise:</td><td>" + data.noise + "</td></tr>";
+          wifiData += "<tr><td>Noise:</td><td>" + data.noise + " dBm</td></tr>";
         if (data.frequency)
-          wfData +=
+          wifiData +=
             "<tr><td>Frequency:</td><td>" + data.frequency + "</td></tr>";
         if (data.bssid)
-          wfData += "<tr><td>BSSID:</td><td>" + data.bssid + "</td></tr>";
+          wifiData += "<tr><td>BSSID:</td><td>" + data.bssid + "</td></tr>";
         if (data.ipv4addrs) {
           var title = "IPV4:";
           var i;
           for (i = 0; i < data.ipv4addrs.length; i++) {
-            wfData +=
+            wifiData +=
               "<tr><td>" +
               title +
               "</td><td>" +
@@ -87,7 +86,7 @@ $(function () {
           var title = "IPV6:";
           var i;
           for (i = 0; i < data.ipv6addrs.length; i++) {
-            wfData +=
+            wifiData +=
               "<tr><td>" +
               title +
               "</td><td>" +
@@ -97,10 +96,9 @@ $(function () {
           }
         }
       }
-      wfData += "</tbody></table>";
+      wifiData += "</tbody></table>";
       self.IconSVG(svg);
-      self.popoverContent(wfData);
-      self.wifiData(wfData);
+      self.popoverContent(wifiData);
     };
   }
 
