@@ -20,6 +20,14 @@ $(function () {
       '<table style="width: 100%"><thead></thead><tbody><tr><td>No Connection</td></tr></tbody></table>'
     );
 
+    self.enableNetmask = function () {
+      if (self.settings) {
+        return self.settings.showIPV4Addr() || self.settings.showIPV6Addr();
+      } else {
+        return false;
+      }
+    };
+
     self.onSettingsShown = function () {
       OctoPrint.simpleApiGet("wifistatus").done(function (response) {
         self.interfaces(response.interfaces);
@@ -95,11 +103,29 @@ $(function () {
             title = "";
           }
         }
+        if (data.gateways) {
+          var title = "Gateways:";
+          var i;
+          for (i = 0; i < data.gateways.length; i++) {
+            wifiData +=
+              "<tr><td>" +
+              title +
+              "</td><td>" +
+              data.gateways[i] +
+              "</td></tr>";
+            title = "";
+          }
+        }
       }
       wifiData += "</tbody></table>";
       self.IconSVG(svg);
       self.popoverContent(wifiData);
     };
+
+    self.onBeforeBinding = function () {
+      self.settings = self.settingsViewModel.settings.plugins.wifistatus;
+    };
+
   }
 
   OCTOPRINT_VIEWMODELS.push({
