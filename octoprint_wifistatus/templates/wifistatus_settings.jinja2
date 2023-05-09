@@ -7,29 +7,39 @@
         optionsText: function(iface) {
           return (iface===null ? 'AUTO' : iface)
         },
-        value: settingsViewModel.settings.plugins.wifistatus.interface"></select>
+        value: settings.interface"></select>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
       <label class="checkbox">
-        <input type="checkbox" data-bind="checked: settingsViewModel.settings.plugins.wifistatus.showFrequency"> Show frequency
+        <input type="checkbox" data-bind="checked: settings.showFrequency"> Show frequency
       </label>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <label class="checkbox"><input type="checkbox" data-bind="checked: settingsViewModel.settings.plugins.wifistatus.showBSSID"> Show Access Point BSSID</label>
+      <label class="checkbox"><input type="checkbox" data-bind="checked: settings.showBSSID">Show Access Point BSSID</label>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <label class="checkbox"><input type="checkbox" data-bind="checked: settingsViewModel.settings.plugins.wifistatus.showIPV4Addr"> Show IPV4 address(es)</label>
+      <label class="checkbox"><input type="checkbox" data-bind="checked: settings.showIPV4Addr">Show IPV4 address(es)</label>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <label class="checkbox"><input type="checkbox" data-bind="checked: settingsViewModel.settings.plugins.wifistatus.showIPV6Addr"> Show IPV6 address(es)</label>
+      <label class="checkbox"><input type="checkbox" data-bind="checked: settings.showIPV6Addr">Show IPV6 address(es)</label>
+    </div>
+  </div>
+  <div class="control-group" data-bind="visible: enableNetmask()">
+    <div class="controls">
+      <label class="checkbox"><input type="checkbox" data-bind="checked: settings.showNetmask">Show netmask(s)</label>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox"><input type="checkbox" data-bind="checked: settings.showGateway">Show gateway(s)</label>
     </div>
   </div>
 </form>

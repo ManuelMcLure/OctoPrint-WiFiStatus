@@ -127,17 +127,28 @@ class WiFiStatusPlugin(
                 if self.showBSSID:
                     net_data["bssid"] = wifi.getAPaddr()
                 if self.showIPV4Addr:
-                    ipv4addrs = [
-                        ad["addr"] for ad in ni.ifaddresses(interface)[ni.AF_INET]
-                    ]
+                    ipv4addrs = []
+                    for ad in ni.ifaddresses(interface)[ni.AF_INET]:
+                        ipv4addrs.append(ad["addr"])
+                        if self.showNetmask:
+                            ipv4addrs.append("Netmask: " + ad["netmask"])
                     net_data["ipv4addrs"] = ipv4addrs
                 if self.showIPV6Addr:
-                    ipv6addrs = [
-                        ad["addr"]
-                        for ad in ni.ifaddresses(interface)[ni.AF_INET6]
-                        if not ad["addr"].endswith("%" + interface)
-                    ]
+                    ipv6addrs = []
+                    for ad in ni.ifaddresses(interface)[ni.AF_INET6]:
+                        if ad["addr"].endswith("%" + interface):
+                            continue
+                        ipv6addrs.append(ad["addr"])
+                        if self.showNetmask:
+                            ipv6addrs.append("Netmask: " + ad["netmask"])
                     net_data["ipv6addrs"] = ipv6addrs
+                if self.showGateway:
+                    gateways = []
+                    gws = ni.gateways()
+                    for af in [ni.AF_INET, ni.AF_INET6]:
+                        for gw in gws[af]:
+                            gateways.append(gw[0] + " " + gw[1] + (" (Default)" if gw[2] else ""))
+                    net_data["gateways"] = gateways
 
             self._logger.debug(net_data)
 
@@ -167,6 +178,8 @@ class WiFiStatusPlugin(
             "showFrequency": False,
             "showIPV4Addr": False,
             "showIPV6Addr": False,
+            "showNetmask": False,
+            "showGateway": False,
         }
 
     def on_settings_load(self):
@@ -176,6 +189,8 @@ class WiFiStatusPlugin(
             "showFrequency": self._settings.get_boolean(["showFrequency"]),
             "showIPV4Addr": self._settings.get_boolean(["showIPV4Addr"]),
             "showIPV6Addr": self._settings.get_boolean(["showIPV6Addr"]),
+            "showNetmask": self._settings.get_boolean(["showNetmask"]),
+            "showGateway": self._settings.get_boolean(["showGateway"]),
         }
 
     def on_settings_initialized(self):
@@ -184,6 +199,8 @@ class WiFiStatusPlugin(
         self.showFrequency = self._settings.get_boolean(["showFrequency"])
         self.showIPV4Addr = self._settings.get_boolean(["showIPV4Addr"])
         self.showIPV6Addr = self._settings.get_boolean(["showIPV6Addr"])
+        self.showNetmask = self._settings.get_boolean(["showNetmask"])
+        self.showGateway = self._settings.get_boolean(["showGateway"])
 
     def on_settings_save(self, data):
         octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
