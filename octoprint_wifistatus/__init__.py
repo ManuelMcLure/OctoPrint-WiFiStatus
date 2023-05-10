@@ -146,15 +146,19 @@ class WiFiStatusPlugin(
                     gateways = []
                     gws = ni.gateways()
                     for af in [ni.AF_INET, ni.AF_INET6]:
-                        for gw in gws[af]:
-                            gateways.append(gw[0] + " " + gw[1] + (" (Default)" if gw[2] else ""))
+                        try:
+                            for gw in gws[af]:
+                                gateways.append(gw[0] + " " + gw[1] + (" (Default)" if gw[2] else ""))
+                        except KeyError:
+                            pass
                     net_data["gateways"] = gateways
 
             self._logger.debug(net_data)
 
             self._plugin_manager.send_plugin_message(self._identifier, net_data)
         except Exception as exc:
-            self._logger.debug(f"WiFiStatus: timer exception: {exc.args}")
+            self._logger.debug(f"WiFiStatus: timer exception",
+                    exc_info=sys.exc_info())
 
     def get_update_information(self):
         return {
