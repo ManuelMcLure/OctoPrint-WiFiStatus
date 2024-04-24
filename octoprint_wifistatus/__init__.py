@@ -131,7 +131,10 @@ class WiFiStatusPlugin(
                     for ad in ni.ifaddresses(interface)[ni.AF_INET]:
                         ipv4addrs.append(ad["addr"])
                         if self.showNetmask:
-                            ipv4addrs.append("Netmask: " + ad["netmask"])
+                            if "mask" in ad:
+                                ipv4addrs.append("Netmask: " + ad["mask"])
+                            elif "netmask" in ad:
+                                ipv4addrs.append("Netmask: " + ad["netmask"])
                     net_data["ipv4addrs"] = ipv4addrs
                 if self.showIPV6Addr:
                     ipv6addrs = []
@@ -140,6 +143,10 @@ class WiFiStatusPlugin(
                             continue
                         ipv6addrs.append(ad["addr"])
                         if self.showNetmask:
+                            if "mask" in ad:
+                                ipv6addrs.append("Netmask: " + ad["mask"])
+                            elif "netmask" in ad:
+                                ipv6addrs.append("Netmask: " + ad["netmask"])
                             ipv6addrs.append("Netmask: " + ad["netmask"])
                     net_data["ipv6addrs"] = ipv6addrs
                 if self.showGateway:
