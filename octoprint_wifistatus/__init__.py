@@ -147,7 +147,6 @@ class WiFiStatusPlugin(
                                 ipv6addrs.append("Netmask: " + ad["mask"])
                             elif "netmask" in ad:
                                 ipv6addrs.append("Netmask: " + ad["netmask"])
-                            ipv6addrs.append("Netmask: " + ad["netmask"])
                     net_data["ipv6addrs"] = ipv6addrs
                 if self.showGateway:
                     gateways = []
