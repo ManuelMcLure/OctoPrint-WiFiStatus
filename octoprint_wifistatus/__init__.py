@@ -31,6 +31,12 @@ class WiFiStatusPlugin(
     octoprint.plugin.SettingsPlugin,
     octoprint.plugin.SimpleApiPlugin,
 ):
+    def is_template_autoescaped(self):
+        return True
+
+    def is_api_protected(self):
+        return True
+
     def update_interface_list(self):
         self._interfaces = [None]
         # Get list of interfaces for settings
