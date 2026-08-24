@@ -48,7 +48,7 @@ $(function () {
         wifiData += "<tr><td>No Connection</td></tr>";
       } else if (!data.essid) {
         svg += self._iconSVGs[0];
-        wifiData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
+        wifiData += "<tr><td>Interface:</td><td>" + _.escape(data.interface) + "</td></tr>";
         wifiData += "<tr><td>No Connection</td></tr>";
       } else {
         quality = Math.round((data.qual / data.qual_max) * 100);
@@ -58,25 +58,25 @@ $(function () {
         else if (quality > 20) svg += self._iconSVGs[4];
         else svg += self._iconSVGs[5];
 
-        wifiData += "<tr><td>Interface:</td><td>" + data.interface + "</td></tr>";
-        wifiData += "<tr><td>ESSID:</td><td>" + data.essid + "</td></tr>";
+        wifiData += "<tr><td>Interface:</td><td>" + _.escape(data.interface) + "</td></tr>";
+        wifiData += "<tr><td>ESSID:</td><td>" + _.escape(data.essid) + "</td></tr>";
         wifiData +=
           "<tr><td>Quality:</td><td>" +
-          data.qual +
+          _.escape(data.qual) +
           "/" +
-          data.qual_max +
+          _.escape(data.qual_max) +
           " (" +
-          quality +
+          _.escape(quality) +
           "%) </td></tr>";
-        wifiData += "<tr><td>Bitrate:</td><td>" + data.bitrate + "</td></tr>";
-        wifiData += "<tr><td>Signal:</td><td>" + data.signal + " dBm</td></tr>";
+        wifiData += "<tr><td>Bitrate:</td><td>" + _.escape(data.bitrate) + "</td></tr>";
+        wifiData += "<tr><td>Signal:</td><td>" + _.escape(data.signal) + " dBm</td></tr>";
         if (data.noise != 0)
-          wifiData += "<tr><td>Noise:</td><td>" + data.noise + " dBm</td></tr>";
+          wifiData += "<tr><td>Noise:</td><td>" + _.escape(data.noise) + " dBm</td></tr>";
         if (data.frequency)
           wifiData +=
-            "<tr><td>Frequency:</td><td>" + data.frequency + "</td></tr>";
+            "<tr><td>Frequency:</td><td>" + _.escape(data.frequency) + "</td></tr>";
         if (data.bssid)
-          wifiData += "<tr><td>BSSID:</td><td>" + data.bssid + "</td></tr>";
+          wifiData += "<tr><td>BSSID:</td><td>" + _.escape(data.bssid) + "</td></tr>";
         if (data.ipv4addrs) {
           var title = "IPV4:";
           var i;
@@ -85,7 +85,7 @@ $(function () {
               "<tr><td>" +
               title +
               "</td><td>" +
-              data.ipv4addrs[i] +
+              _.escape(data.ipv4addrs[i]) +
               "</td></tr>";
             title = "";
           }
@@ -98,7 +98,7 @@ $(function () {
               "<tr><td>" +
               title +
               "</td><td>" +
-              data.ipv6addrs[i] +
+              _.escape(data.ipv6addrs[i]) +
               "</td></tr>";
             title = "";
           }
@@ -111,7 +111,7 @@ $(function () {
               "<tr><td>" +
               title +
               "</td><td>" +
-              data.gateways[i] +
+              _.escape(data.gateways[i]) +
               "</td></tr>";
             title = "";
           }
