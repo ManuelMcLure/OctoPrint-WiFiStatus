@@ -12,7 +12,7 @@ authors = [
     { name = "Manuel McLure", email = "manuel@mclure.org" },
 ]
 requires-python = ">=3.7,<4"
-dependencies = []
+dependencies = ["netifaces>=0.10.9,<1"]
 dynamic = [
     "license",
 ]
