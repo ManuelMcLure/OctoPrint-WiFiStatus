@@ -1,0 +1,42 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "WiFi-Status"
+version = "1.9.1"
+description = "Displays WiFi status on the navbar"
+authors = [
+    { name = "Manuel McLure", email = "manuel@mclure.org" },
+]
+requires-python = ">=3.7,<4"
+dependencies = []
+dynamic = [
+    "license",
+]
+
+[project.entry-points."octoprint.plugin"]
+wifistatus = "octoprint_wifistatus"
+
+[project.urls]
+Homepage = "https://github.com/ManuelMcLure/OctoPrint-WiFiStatus"
+
+[project.optional-dependencies]
+develop = [
+    "go-task-bin",
+]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+    "octoprint_wifistatus",
+    "octoprint_wifistatus.*",
+]
