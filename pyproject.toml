@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "WiFi-Status"
-version = "1.10.0"
+version = "1.10.2"
 description = "Displays WiFi status on the navbar"
 authors = [
     { name = "Manuel McLure", email = "manuel@mclure.org" },
